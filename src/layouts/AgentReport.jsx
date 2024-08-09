@@ -39,6 +39,36 @@ const AgentReport = () => {
         },
       })
 
+      const [totalRatings,setTotalRatings] = useState( { 
+        series: [ Number(userReport?.ev?.length), Number(userReport?.esc?.length)],
+        options: {
+          chart: {
+            height: 350,
+            type: 'radialBar',
+          },
+          plotOptions: {
+            radialBar: {
+              dataLabels: {
+                name: {
+                  fontSize: '22px',
+                },
+                value: {
+                  fontSize: '16px',
+                },
+                total: {
+                  show: true,
+                  label: 'Total',
+                  formatter: function (w) {
+                    return  Number(userReport?.ev?.length+userReport?.esc?.length)
+                  }
+                }
+              }
+            }
+          },
+          labels: ['Evaluation','Escalation'],
+        },
+      })
+
     const getReport = async () => {
         const {data} = await retrieveReport(param.name)
         setUserReport(data)
@@ -73,17 +103,49 @@ const AgentReport = () => {
                     }
                   }
                 },
-              }));
+            }));
+            setTotalRatings((pre) => ({
+              ...pre,
+                series: [
+                  Number(userReport?.ev?.length),
+                  Number(userReport?.esc?.length)
+                ],
+                options:{
+                  ...pre,
+                  plotOptions:{
+                    radialBar:{
+                      dataLabels:{
+                        ...pre,
+                        total:{
+                          ...pre,
+                          formatter: function (w) {
+                            return Number(userReport?.ev?.length+userReport?.esc?.length)
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+            }))
         }
     },[userReport])
+
 
   return (
     <div className='d-flex flex-column gap-3'>
       {isLoading ?  <div><Loader/></div> : 
     <div className='mt-5'>
-        <div className='rounded mb-5' style={{backgroundColor:'#fff'}}>
-            <div style={{padding:'1rem',fontWeight:'500',fontSize:'0.9rem'}}>Escalation Ratings</div>
-            <ReactApexChart options={usergraph?.options} series={usergraph?.series} type="radialBar" height={350} />
+        <div className='flex rounded mb-5' style={{backgroundColor:'#fff'}}>
+            <div style={{display:'flex',flexDirection:'row',justifyContent:"center",gap:'20px'}}>
+              <div style={{display:'flex',flexDirection:"column",justifyContent:"center",alignContent:'center'}}>
+                  <div style={{padding:'1rem',fontWeight:'500',fontSize:'0.9rem',textAlign:'center'}}>Escalation Ratings</div>
+                  <ReactApexChart options={usergraph?.options} series={usergraph?.series} type="radialBar" height={350} />
+              </div>
+              <div style={{display:'flex',flexDirection:"column",justifyContent:"center",alignContent:'center'}}>
+                <div style={{padding:'1rem',fontWeight:'500',fontSize:'0.9rem',textAlign:'center'}}>Total Ratings</div>
+                <ReactApexChart options={totalRatings?.options} series={totalRatings?.series} type="radialBar" height={350} />
+              </div>
+            </div>
         </div>
         {userReport?.esc?.length > 0 && (<div className='mb-5'>
             <div className='sc-none' style={{overflowX:'scroll'}}>
