@@ -18,18 +18,22 @@ const navigation = [
 ];
 
 const Sidebar = () => {
-  const Navigation = useNavigate()
+  const navigation = useNavigate()
   const user = JSON.parse(localStorage.getItem('bicuserData'))
   const showMobilemenu = () => {
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
   };
   // let location = useLocation();
   const navigateToEvaluation  = () =>{
-    Navigation('/bi/agentform')
+    navigation('/bi/agentform')
     window.location.reload();
   }
   const navigateToEscalation  = () =>{
-    Navigation('/bi/escalationform')
+    navigation('/bi/escalationform')
+    window.location.reload();
+  }
+  const navigateToPPC = () => {
+    navigation('/bi/ppcform');
     window.location.reload();
   }
   return (
@@ -50,6 +54,7 @@ const Sidebar = () => {
             {/* <div class="d-grid gap-2 d-md-flex justify-content-md-end"> */}
                 <NavItem className="btn btn-outline-success" onClick={() => navigateToEvaluation()}> Evaluation</NavItem>
                 <NavItem className="btn btn-outline-danger" onClick={() => navigateToEscalation()}> Escalation</NavItem>
+                <NavItem className="btn btn-outline-danger" onClick={() => navigateToPPC()}> PPC</NavItem>
                 {user?.role === 'admin' && <Model/>}
             {/* </div> */}
           {/* {navigation.map((navi, index) => (

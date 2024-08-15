@@ -99,7 +99,7 @@ const AgentForm = () => {
         navigate('/bi/profile')
         window.location.reload();
         setLoad(false)
-        setLoad(false)
+        
       }
     }
   }

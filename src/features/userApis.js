@@ -42,6 +42,16 @@ export const evaluationApi = async (data) => {
     return res
 }
 
+export const ppcApi = async (data) => {
+    let token = cookie.get('bictoken')
+    const res = await axios.post(`${baseUrl}/createppc`,data,{
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return res
+}
+
 export const fetchleaders = async () => {
     let token = cookie.get('bictoken')
     const res = await axios.get(`${baseUrl}/fetchleaders`,{
