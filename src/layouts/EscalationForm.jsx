@@ -285,10 +285,6 @@ const EscalationForm = () => {
   Submit {load && <BtnLoader/>}
 </button>
 
-  <button type="button" class="btn btn-lg d-flex gap-2 justify-content-center align-content-center"
-  style={{backgroundColor:'#39c449',color:'#fff'}} onClick={handlerEscForm} disabled={load}>
-    Submit {load && <BtnLoader/>}
-  </button>
 
 </div>
         </div>

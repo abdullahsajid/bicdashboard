@@ -1,6 +1,7 @@
 import axios from "axios"
 import Cookies from "universal-cookie"
 const cookie = new Cookies
+
 const baseUrl = 'https://backendbic.onrender.com'
 export const LoginApi = async (data) => {
     const res = await axios.post(`${baseUrl}/login`,data)
@@ -82,9 +83,9 @@ export const fetchuserbyid = async (id) => {
     return res
 }
 
-export const retrieveReport = async (name) => {
+export const retrieveReport = async (payload) => {
     let token = cookie.get('bictoken')
-    const res = await axios.get(`${baseUrl}/getuserdata/${name}`,{
+    const res = await axios.post(`${baseUrl}/getuserdata/${payload.name}`,payload,{
         headers:{
             Authorization: `Bearer ${token}`
         }

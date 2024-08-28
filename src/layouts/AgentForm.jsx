@@ -285,10 +285,6 @@ checked={evaluation.closing==='mark'} onChange={(e) => {
         </div>
        
       <div className='p-4'>
-{/*         <button type="button" class="btn btn-outline-success btn-lg d-flex gap-2 justify-content-center align-content-center" 
-          onClick={handlerEscForm} disabled={load}
-          style={{backgroundColor:'#39c449',color:"#fff"}}
-        > */}
 
         <button type="button" class="btn btn-lg d-flex gap-2 justify-content-center align-content-center" style={{backgroundColor:'#39c449',color:'#fff'}} 
           onClick={handlerEscForm} disabled={load}>
